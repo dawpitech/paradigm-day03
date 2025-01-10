@@ -5,18 +5,10 @@
 -- Tree.hs
 -}
 
-import Data.Binary.Builder (append)
+{-# LANGUAGE DeriveFoldable, DeriveFunctor #-}
 
 data Tree a = Empty | Node (Tree a) a (Tree a)
-    deriving Show
-
-instance Functor Tree where
-    fmap f Empty = Empty
-    fmap f (Node l v r) = Node (fmap f l) (f v) (fmap f r)
-
-instance Foldable Tree where
-    foldr f a Empty = a
-    foldr f a b = foldr f a $ treeToList b
+    deriving (Show, Foldable, Functor)
 
 addInTree :: Ord a => a -> Tree a -> Tree a
 addInTree v Empty = Node Empty v Empty
