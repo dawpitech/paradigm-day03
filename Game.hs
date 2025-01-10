@@ -30,7 +30,7 @@ instance Show Mob where
     show (Skeleton i)             = "skeleton holding a " ++ show i
     show (Witch Nothing)          = "witch"
     show (Witch (Just MagicWand)) = "sorceress"
-    show (Witch i)                = "witch holding a " ++ show i
+    show (Witch (Just i))         = "witch holding a " ++ show i
 
 instance HasItem Mob where
     getItem Mummy        = Nothing
