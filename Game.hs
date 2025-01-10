@@ -33,10 +33,9 @@ instance Show Mob where
     show (Witch i)                = "witch holding a " ++ show i
 
 instance HasItem Mob where
-    getItem Mummy            = Nothing
-    getItem (Skeleton i)     = Just i
-    getItem (Witch Nothing)  = Nothing
-    getItem (Witch (Just i)) = Just i
+    getItem Mummy        = Nothing
+    getItem (Skeleton i) = Just i
+    getItem (Witch i)    = i
 
 createMummy :: Mob
 createMummy = Mummy
