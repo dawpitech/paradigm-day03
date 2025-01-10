@@ -30,3 +30,16 @@ createWitch = Witch Nothing
 
 createSorceress :: Mob
 createSorceress = Witch $ Just MagicWand
+
+create :: String -> Maybe Mob
+create "mummy" = Just createMummy
+create "doomed archer" = Just createArcher
+create "dead knight" = Just createKnight
+create "witch" = Just createWitch
+create "sorceress" = Just createSorceress
+create _ = Nothing
+
+equip :: Item -> Mob -> Maybe Mob
+equip i (Skeleton _) = Just $ Skeleton i
+equip i (Witch _) = Just $ Witch (Just i)
+equip _ _ = Nothing
