@@ -14,14 +14,17 @@ instance Functor Tree where
     fmap f Empty = Empty
     fmap f (Node l v r) = Node (fmap f l) (f v) (fmap f r)
 
+instance Foldable Tree where
+    foldr f a Empty = a
+    foldr f a b = foldr f a $ treeToList b
+
 addInTree :: Ord a => a -> Tree a -> Tree a
 addInTree v Empty = Node Empty v Empty
 addInTree v (Node l ev r) | v < ev    = Node (addInTree v l) ev r
                           | otherwise = Node l ev (addInTree v r)
 
 listToTree :: Ord a => [a] -> Tree a
-listToTree []     = Empty
-listToTree (a:as) = addInTree a $ listToTree as
+listToTree = foldr addInTree Empty
 
 treeToList :: Tree a -> [a]
 treeToList Empty        = []
