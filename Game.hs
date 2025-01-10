@@ -64,4 +64,3 @@ equip :: Item -> Mob -> Maybe Mob
 equip i (Skeleton _) = Just $ Skeleton i
 equip i (Witch _)    = Just $ Witch (Just i)
 equip _ _            = Nothing
-
