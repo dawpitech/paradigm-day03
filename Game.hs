@@ -13,7 +13,7 @@ data Item = Sword | Bow | MagicWand
 instance Show Item where
     show Sword     = "sword"
     show Bow       = "bow"
-    show MagicWand = "magicWand" 
+    show MagicWand = "magic wand" 
 
 class HasItem a where
     getItem :: a -> Maybe Item
