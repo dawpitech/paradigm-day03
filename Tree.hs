@@ -5,6 +5,8 @@
 -- Tree.hs
 -}
 
+import Data.Binary.Builder (append)
+
 data Tree a = Empty | Node (Tree a) a (Tree a)
     deriving Show
 
@@ -20,3 +22,7 @@ addInTree v (Node l ev r) | v < ev    = Node (addInTree v l) ev r
 listToTree :: Ord a => [a] -> Tree a
 listToTree []     = Empty
 listToTree (a:as) = addInTree a $ listToTree as
+
+treeToList :: Tree a -> [a]
+treeToList Empty        = []
+treeToList (Node l v r) = treeToList l ++ [v] ++ treeToList r
