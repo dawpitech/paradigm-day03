@@ -26,3 +26,6 @@ listToTree (a:as) = addInTree a $ listToTree as
 treeToList :: Tree a -> [a]
 treeToList Empty        = []
 treeToList (Node l v r) = treeToList l ++ [v] ++ treeToList r
+
+treeSort :: Ord a => [a] -> [a]
+treeSort l = treeToList $ listToTree l
