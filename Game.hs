@@ -5,6 +5,8 @@
 -- Game.hs
 -}
 
+import Data.Maybe (isJust)
+
 data Item = Sword | Bow | MagicWand
     deriving Eq
 
@@ -12,6 +14,11 @@ instance Show Item where
     show Sword     = "sword"
     show Bow       = "bow"
     show MagicWand = "magicWand" 
+
+class HasItem a where
+    getItem :: a -> Maybe Item
+    hasItem :: a -> Bool
+    hasItem a = isJust $ getItem a
 
 data Mob = Mummy | Skeleton Item | Witch (Maybe Item)
     deriving (Eq)
@@ -25,6 +32,11 @@ instance Show Mob where
     show (Witch (Just MagicWand)) = "sirceress"
     show (Witch i)                = "witch holding a " ++ show i
 
+instance HasItem Mob where
+    getItem Mummy            = Nothing
+    getItem (Skeleton i)     = Just i
+    getItem (Witch Nothing)  = Nothing
+    getItem (Witch (Just i)) = Just i
 
 createMummy :: Mob
 createMummy = Mummy
@@ -54,6 +66,3 @@ equip i (Skeleton _) = Just $ Skeleton i
 equip i (Witch _)    = Just $ Witch (Just i)
 equip _ _            = Nothing
 
-class HasItem where
-    getItem :: a -> Maybe Item
-    hasItem :: a -> Bool
